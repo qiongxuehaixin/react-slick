@@ -318,7 +318,7 @@ export class InnerSlider extends React.Component {
     this.changeSlide(options)
   }
   swipeStart = (e) => {
-    let state = swipeStart(e, this.props.swipe, this.props.draggable)
+    let state = swipeStart(e, this.props)
     state !== '' && this.setState(state)
   }
   swipeMove = (e) => {

@@ -261,9 +261,12 @@ export const keyHandler = (e, accessibility, rtl) => {
   return ''
 }
 
-export const swipeStart = (e, swipe, draggable) => {
+export const swipeStart = (e, spec) => {
+  if (spec.vertical && spec.verticalSwiping) {
+    document.body.style.overflow = 'hidden'
+  }
   e.target.tagName === 'IMG' && e.preventDefault()
-  if (!swipe || (!draggable && e.type.indexOf('mouse') !== -1)) return ''
+  if (!spec.swipe || (!spec.draggable && e.type.indexOf('mouse') !== -1)) return ''
   return {
     dragging: true,
     touchObject: {
@@ -347,6 +350,9 @@ export const swipeMove = (e, spec) => {
   return state
 }
 export const swipeEnd = (e, spec) => {
+  if (spec.vertical && spec.verticalSwiping) {
+    document.body.style.overflow = ''
+  }
   const {dragging, swipe, touchObject, listWidth, touchThreshold,
     verticalSwiping, listHeight, currentSlide, swipeToSlide, scrolling,
     onSwipe } = spec
